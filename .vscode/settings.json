@@ -1,0 +1,62 @@
+{
+    "emmet.syntaxProfiles": {
+        "vue-html": "html",
+        "vue": "html"
+    },
+    "liveServer.settings.donotShowInfoMsg": true,
+    "git.ignoreLegacyWarning": true,
+    "editor.minimap.enabled": false,
+    // "workbench.iconTheme": "vs-minimal",
+    "workbench.colorTheme": "Visual Studio Light",
+    "window.menuBarVisibility": "default",
+    "window.zoomLevel": 0,
+    "liveServer.settings.donotVerifyTags": true,
+    // 控制是否将打开的编辑器显示为预览。预览编辑器将会重用至其被保留(例如，通过双击或编辑)，且其字体样式将为斜体。
+    "workbench.editor.enablePreview": false,
+    // 控制 Quick Open 中打开的编辑器是否显示为预览。预览编辑器可以重新使用，直到将其保留(例如，通过双击或编辑)。
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    // 控制编辑器是否在用户键入、粘贴或移动行时自动调整缩进。语言的缩进规则必须可用。
+    "editor.autoIndent": true,
+    // 控制编辑器是否应自动设置粘贴内容的格式。格式化程序必须可用并且能设置文档中某一范围的格式。
+    "editor.formatOnPaste": false,
+    "workbench.startupEditor": "newUntitledFile",
+    "editor.accessibilitySupport": "off",
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "emmet.triggerExpansionOnTab": true,
+    "vetur.format.defaultFormatterOptions": {
+        "js-beautify-html": {
+            "wrap_attributes": "auto"
+        }
+    },
+    "vetur.format.defaultFormatter.html": "js-beautify-html",
+    "vetur.format.defaultFormatter.js": "vscode-typescript",
+    "search.followSymlinks": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "javascript.preferences.quoteStyle": "double",
+    "typescript.preferences.quoteStyle": "double",
+    "git.autorefresh": false,
+    "git.enabled": false,
+    "workbench.editor.openPositioning": "left",
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "less.compile": {
+        "compress": false, // 是否压缩
+        "sourceMap": false, // 是否生成map文件，有了这个可以在调试台看到less行数
+        "out": false // 是否输出css文件，false为不输出
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+        "source.fixAll.stylelint": true
+    }
+}
