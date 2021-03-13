@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>http</title>
+</head>
+
+<body>
+    <div>http</div>
+    <script>
+        function httpSelf() {
+            let list = new Set();
+            return {
+                get: function (url, count) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", url);
+                    xhr.send();
+                    //请求相同时终止
+                    if (list.has(url)) {
+                        xhr.abort()
+                        return sessionStorage.getItem(url)
+                    } else {
+                        list.add(url)
+                    }
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            sessionStorage.setItem(url, xhr.responseText)
+                        }
+                    }
+                    //请求完成
+                    xhr.onload = function (err) {
+                        if (count > 1 && xhr.status != 200) {
+                            setTimeout(function () {
+                                httpSelf().get(url, count - 1)
+                            }, 3000)
+                        }
+                    }
+                    //请求错误
+                    xhr.onerror = function (err) {
+                        if (count > 1) {
+                            setTimeout(function () {
+                                httpSelf().get(url, count - 1)
+                            }, 3000)
+                        }
+                    }
+                },
+                post:function(){
+
+                }
+            }
+        }
+        var http = new httpSelf();
+        console.log(http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2))
+        console.log(http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2))
+        // http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2)
+    </script>
+</body>
+
+</html>
