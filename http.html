@@ -9,12 +9,12 @@
 </head>
 
 <body>
-    <div>http</div>
+    <div>http请求，看f12控制台，刷新浏览器</div>
     <script>
         function httpSelf() {
             let list = new Set();
             return {
-                get: function (url, count) {
+                get: function (url, count, time) {
                     var xhr = new XMLHttpRequest();
                     xhr.open("GET", url);
                     xhr.send();
@@ -32,10 +32,10 @@
                     }
                     //请求完成
                     xhr.onload = function (err) {
-                        if (count > 1 && xhr.status != 200) {
+                        if (count > 1 && xhr.status != 200 && xhr.status != 304) {
                             setTimeout(function () {
                                 httpSelf().get(url, count - 1)
-                            }, 3000)
+                            }, time)
                         }
                     }
                     //请求错误
@@ -43,19 +43,25 @@
                         if (count > 1) {
                             setTimeout(function () {
                                 httpSelf().get(url, count - 1)
-                            }, 3000)
+                            }, time)
                         }
                     }
                 },
-                post:function(){
+                post: function () {
 
                 }
             }
         }
         var http = new httpSelf();
-        console.log(http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2))
-        console.log(http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2))
+        console.log(http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2, 3000))
+        console.log(http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2, 3000))
         // http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2)
+        // 实现⼀个前端请求模块，可以缓存 xhr 返回的结果，具备⾃动重试机制，要求：
+        // 解题说明：
+        // 1. ⽣命周期为⼀次⻚⾯打开   --->sessionStorage
+        // 2. 如果有相同的请求同时并⾏发起，要求其中⼀个能挂起并且等待另外⼀个请求
+        // 返回并读取该缓存   --->new Set()判断url唯一
+        // 3. 请求失败⾃动重试指定次数  --->第二个参数次数count，第三个参数间隔时间
     </script>
 </body>
 
