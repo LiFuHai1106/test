@@ -1,5 +1,5 @@
 interface Pipeline {
-  stages: Stage[];
+  stages: string;
 }
 
 interface Stage {
@@ -12,3 +12,9 @@ interface Job {
   status: "success" | "fail";
   time: number;
 }
+
+const pipeline: Pipeline = {
+  stages: "test11",
+};
+
+export default pipeline;

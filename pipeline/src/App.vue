@@ -6,15 +6,15 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { Component, Vue } from "vue-property-decorator";
 import pipeline from "./components/Pipeline/index.vue";
 
-export default Vue.extend({
-  name: "App",
+@Component({
   components: {
     pipeline,
   },
-});
+})
+export default class extends Vue {}
 </script>
 
 <style>
