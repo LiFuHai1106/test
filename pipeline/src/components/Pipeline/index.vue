@@ -17,6 +17,7 @@ import easyFlowMixin from "@/components/Pipeline/mixins";
 import flowNode from "@/components/Pipeline/node";
 import lodash from "lodash";
 import "./index.css";
+import pipeline from "./data";
 
 @Component({
   components: {
@@ -24,10 +25,10 @@ import "./index.css";
   },
 })
 export default class extends Mixins(easyFlowMixin) {
+  private a = pipeline;
   private jsPlumb: any;
   private data = {};
   private flowList = {
-    name: "流程A",
     nodeList: [
       {
         id: "nodeA",
@@ -36,8 +37,8 @@ export default class extends Mixins(easyFlowMixin) {
         name: "编译",
         left: "26px",
         top: "161px",
-        ico: "el-icon-circle-check",
-        time: "00:01:01",
+        status: "success",
+        time: 1318781876406,
       },
       {
         id: "nodeB",
@@ -46,8 +47,8 @@ export default class extends Mixins(easyFlowMixin) {
         name: "部署",
         left: "340px",
         top: "161px",
-        ico: "el-icon-circle-check",
-        time: "00:02:01",
+        status: "success",
+        time: 1318781876406,
       },
       {
         id: "nodeC1",
@@ -56,8 +57,8 @@ export default class extends Mixins(easyFlowMixin) {
         name: "STC",
         left: "639px",
         top: "161px",
-        ico: "el-icon-stopwatch",
-        time: "00:03:01",
+        status: "fail",
+        time: 1318781876406,
       },
       {
         id: "nodeC2",
@@ -66,8 +67,8 @@ export default class extends Mixins(easyFlowMixin) {
         name: "STC",
         left: "639px",
         top: "231px",
-        ico: "el-icon-stopwatch",
-        time: "00:03:01",
+        status: "fail",
+        time: 1318781876406,
       },
       {
         id: "nodeD1",
@@ -76,8 +77,8 @@ export default class extends Mixins(easyFlowMixin) {
         name: "集成测试",
         left: "939px",
         top: "161px",
-        ico: "el-icon-stopwatch",
-        time: "00:04:01",
+        status: "fail",
+        time: 1318781876406,
       },
       {
         id: "nodeD2",
@@ -86,8 +87,8 @@ export default class extends Mixins(easyFlowMixin) {
         name: "单元测试",
         left: "939px",
         top: "231px",
-        ico: "el-icon-stopwatch",
-        time: "00:04:01",
+        status: "fail",
+        time: 1318781876406,
       },
     ],
     lineList: [
@@ -158,7 +159,7 @@ export default class extends Mixins(easyFlowMixin) {
       if (!node.viewOnly) {
         this.jsPlumb.draggable(node.id, {
           containment: "parent",
-          stop: function(el:any) {
+          stop: function(el: any) {
             // 拖拽节点结束后的对调
             console.log("拖拽结束: ", el);
           },
