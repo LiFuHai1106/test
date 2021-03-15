@@ -1,5 +1,8 @@
 <template>
   <div ref="node" :style="nodeContainerStyle" class="ef-node-container">
+    <div class="ef-node-top" v-if="node.titleShow">
+      {{ node.title }}
+    </div>
     <!-- 节点图标 -->
     <div class="ef-node-left-ico flow-node-drag">
       <i :class="node.ico"></i>
