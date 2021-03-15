@@ -17,14 +17,21 @@
                 get: function (url, count, time) {
                     var xhr = new XMLHttpRequest();
                     xhr.open("GET", url);
-                    xhr.send();
                     //请求相同时终止
                     if (list.has(url)) {
-                        xhr.abort()
                         return sessionStorage.getItem(url)
                     } else {
+                        xhr.send();
                         list.add(url)
                     }
+                    // xhr.send();
+                    //请求相同时终止
+                    // if (list.has(url)) {
+                    //     xhr.abort()
+                    //     return sessionStorage.getItem(url)
+                    // } else {
+                    //     list.add(url)
+                    // }
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState == 4 && xhr.status == 200) {
                             sessionStorage.setItem(url, xhr.responseText)
