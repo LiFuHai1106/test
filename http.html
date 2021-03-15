@@ -18,20 +18,20 @@
                     var xhr = new XMLHttpRequest();
                     xhr.open("GET", url);
                     //请求相同时终止
-                    if (list.has(url)) {
-                        return sessionStorage.getItem(url)
-                    } else {
-                        xhr.send();
-                        list.add(url)
-                    }
-                    // xhr.send();
-                    //请求相同时终止
                     // if (list.has(url)) {
-                    //     xhr.abort()
                     //     return sessionStorage.getItem(url)
                     // } else {
+                    //     xhr.send();
                     //     list.add(url)
                     // }
+                    xhr.send();
+                    //请求相同时终止
+                    if (list.has(url)) {
+                        xhr.abort()
+                        return sessionStorage.getItem(url)
+                    } else {
+                        list.add(url)
+                    }
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState == 4 && xhr.status == 200) {
                             sessionStorage.setItem(url, xhr.responseText)
@@ -59,8 +59,14 @@
                     xhr.open("POST", url,true);
                     xhr.setRequestHeader('Content-type', 'application/json');
                     xhr.send(JSON.stringify(params));
+                    if (list.has(url+JSON.stringify(params))) {
+                        xhr.abort()
+                        return sessionStorage.getItem(url+JSON.stringify(params))
+                    } else {
+                        list.add(url+JSON.stringify(params));
+                    }
                     xhr.onreadystatechange = function () {
-                        if (xhr.readyState == 4 && xhr.status == 200) {
+                        if (xhr.readyState == 4 && xhr.status == 201) {
                             sessionStorage.setItem(url+JSON.stringify(params), xhr.responseText)
                         }
                     }
@@ -87,7 +93,7 @@
         console.log(http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2, 3000))
         console.log(http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2, 3000))
         // console.log(http.post("https://jsonplaceholder.typicode.com/posts",{title:"foo"}, 2, 3000))
-        // console.log(http.post("https://jsonplaceholder.typicode.com/posts",{title:""}, 2, 3000))
+        // console.log(http.post("https://jsonplaceholder.typicode.com/posts",{title:"foo"}, 2, 3000))
         // http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2)
         // 实现⼀个前端请求模块，可以缓存 xhr 返回的结果，具备⾃动重试机制，要求：
         // 解题说明：
