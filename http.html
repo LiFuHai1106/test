@@ -54,14 +54,40 @@
                         }
                     }
                 },
-                post: function () {
-
+                post: function (url, params, count, time) {
+                    let xhr = new XMLHttpRequest();
+                    xhr.open("POST", url,true);
+                    xhr.setRequestHeader('Content-type', 'application/json');
+                    xhr.send(JSON.stringify(params));
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            sessionStorage.setItem(url+JSON.stringify(params), xhr.responseText)
+                        }
+                    }
+                    //请求完成
+                    xhr.onload = function (err) {
+                        if (count > 1 && xhr.status != 201) {
+                            setTimeout(function () {
+                                httpSelf().post(url, count - 1)
+                            }, time)
+                        }
+                    }
+                    //请求错误
+                    xhr.onerror = function (err) {
+                        if (count > 1) {
+                            setTimeout(function () {
+                                httpSelf().post(url, count - 1)
+                            }, time)
+                        }
+                    }
                 }
             }
         }
         var http = new httpSelf();
         console.log(http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2, 3000))
         console.log(http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2, 3000))
+        // console.log(http.post("https://jsonplaceholder.typicode.com/posts",{title:"foo"}, 2, 3000))
+        // console.log(http.post("https://jsonplaceholder.typicode.com/posts",{title:""}, 2, 3000))
         // http.get("http://jsonplaceholder.typicode.com/comments?postId=1", 2)
         // 实现⼀个前端请求模块，可以缓存 xhr 返回的结果，具备⾃动重试机制，要求：
         // 解题说明：
